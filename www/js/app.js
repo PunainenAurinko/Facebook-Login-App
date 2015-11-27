@@ -31,7 +31,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     });
 })
 
-// , user_photos
+.config(function($httpProvider) {
+    $httpProvider.interceptors.push('httpInterceptor');
+})
 
 .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider

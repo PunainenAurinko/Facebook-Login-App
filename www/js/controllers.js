@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function ($scope, $ionicModal, $timeout, $auth, $ionicPopup) {
+.controller('AppCtrl', function ($scope, $ionicModal, $timeout, $auth, $ionicPopup, $ionicLoading) {
 
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
@@ -39,6 +39,27 @@ angular.module('starter.controllers', [])
             $scope.closeLogin();
         }, 1000);
     };
+    
+    $scope.$on('authentication-failed', function () {
+        
+        $auth.logout();
+        $auth.login();
+        
+    });
+    
+    $scope.$on('loader_show', function () {
+        
+        $ionicLoading.show({
+            template: 'Loading...'
+        });
+        
+    });
+    
+    $scope.$on('loader_hide', function() {
+        
+        $ionicLoading.hide();
+        
+    });
 
     $scope.authenticate = function (provider) {
         $auth.authenticate(provider).then(function () {
